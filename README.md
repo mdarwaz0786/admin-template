@@ -1,1 +1,1 @@
-Vite + React Admin Dashboard templete
+Vite + React Admin Dashboard Templete
