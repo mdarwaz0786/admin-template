@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styles from "./AddProduct.module.css";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
@@ -105,7 +104,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className={`container ${styles.formContainer}`}>
+    <div className="container">
       <div className="d-flex justify-content-between mb-4">
         <h5 className="text-center">Add Product</h5>
         <button className="btn btn-light text-dark border" onClick={() => navigation(-1)}>← Back</button>
@@ -113,7 +112,7 @@ const AddProduct = () => {
       <form onSubmit={handleSubmit}>
         <div className="row g-3">
           <div className="col-md-6">
-            <label className="form-label">Product Name</label>
+            <label className="form-label">Product Name <span style={{ color: 'red' }}>*</span></label>
             <input
               type="text"
               name="name"
@@ -125,7 +124,7 @@ const AddProduct = () => {
           </div>
 
           <div className="col-md-6">
-            <label className="form-label">Price (₹)</label>
+            <label className="form-label">Price (₹) <span style={{ color: 'red' }}>*</span></label>
             <input
               type="number"
               name="price"
@@ -137,7 +136,7 @@ const AddProduct = () => {
           </div>
 
           <div className="col-md-6">
-            <label className="form-label">Category</label>
+            <label className="form-label">Category <span style={{ color: 'red' }}>*</span></label>
             <select
               name="category"
               value={form.category}
@@ -155,7 +154,7 @@ const AddProduct = () => {
           </div>
 
           <div className="col-md-6">
-            <label className="form-label">Show in Latest</label>
+            <label className="form-label">Show in Latest <span style={{ color: 'red' }}>*</span></label>
             <select
               name="showLatest"
               value={form.showLatest}
@@ -173,7 +172,7 @@ const AddProduct = () => {
           </div>
 
           <div className="col-12">
-            <label className="form-label">Product Description</label>
+            <label className="form-label">Product Description <span style={{ color: 'red' }}>*</span></label>
             <textarea
               name="description"
               rows="5"
@@ -189,7 +188,7 @@ const AddProduct = () => {
         <div className="mt-5">
           <h6 className="fw-bold">Product Variants</h6>
           {variants.map((variant, index) => (
-            <div key={index} className={`border rounded p-3 mb-4 ${styles.variantBlock}`}>
+            <div key={index} className="border rounded p-3 mb-4">
               <div className="d-flex justify-content-between align-items-center mb-2">
                 <strong>Variant {index + 1}</strong>
                 <button
@@ -202,7 +201,7 @@ const AddProduct = () => {
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Color</label>
+                <label className="form-label">Color <span style={{ color: 'red' }}>*</span></label>
                 <select
                   className="form-select"
                   value={variant.color}
@@ -219,7 +218,7 @@ const AddProduct = () => {
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Upload Images</label>
+                <label className="form-label">Upload Images <span style={{ color: 'red' }}>*</span></label>
                 <input
                   type="file"
                   multiple
@@ -255,7 +254,7 @@ const AddProduct = () => {
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Sizes & Stock</label>
+                <label className="form-label">Sizes & Stock <span style={{ color: 'red' }}>*</span></label>
                 {variant.sizes.map((size, sizeIndex) => (
                   <div
                     className="d-flex align-items-center gap-2 mb-2"
@@ -309,7 +308,7 @@ const AddProduct = () => {
           ))}
 
           <button type="button" className="btn btn-success" onClick={addVariant}>
-            + Add Another Variant
+            + Add Variant
           </button>
         </div>
 

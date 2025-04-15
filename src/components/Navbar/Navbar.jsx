@@ -42,6 +42,9 @@ const Navbar = ({ handleToggleSidebar }) => {
             className={styles.avatar}
             onClick={toggleDropdown}
           />
+          <div className="dropdown" onClick={toggleDropdown}>
+            <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</button>
+          </div>
           {dropdownOpen && (
             <ul className={styles.dropdownMenu}>
               <Link to="#" className="text-decoration-none"><li className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>My Profile</li></Link>

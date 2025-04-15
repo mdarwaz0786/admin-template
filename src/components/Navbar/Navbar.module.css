@@ -31,6 +31,8 @@
 .profile {
   position: relative;
   cursor: pointer;
+  display: flex;
+  column-gap: 16px;
 }
 
 .avatar {

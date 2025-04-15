@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ProductList.module.css';
+import styles from '../../shared/styles/TableStyles.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const ProductList = () => {
@@ -66,6 +66,31 @@ const ProductList = () => {
     setCurrentPage(1);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleBack = () => {
+    navigation(-1);
+  };
+
+  const handleSelectAll = () => {
+    if (selected.length === products.length) {
+      setSelected([]);
+    } else {
+      setSelected(products.map((p) => p.id));
+    };
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage((prev) => prev - 1);
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+
   const filteredProducts = products.filter((p) =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -81,18 +106,18 @@ const ProductList = () => {
     <div className={`container ${styles.tableWrapper}`}>
       <div className="d-flex justify-content-between mb-4">
         <h5 className="text-center">Product List</h5>
-        <button className="btn btn-light text-dark border" onClick={() => navigation(-1)}>← Back</button>
+        <button className="btn btn-light text-dark border" onClick={handleBack}>
+          ← Back
+        </button>
       </div>
+
       <div className="mb-3 d-flex justify-content-between align-items-center">
         <input
           type="text"
           placeholder="Search products..."
           className="form-control w-25"
           value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            setCurrentPage(1);
-          }}
+          onChange={handleSearchChange}
         />
         <button
           className="btn btn-danger btn-sm ms-3"
@@ -111,13 +136,7 @@ const ProductList = () => {
                 <input
                   type="checkbox"
                   checked={selected.length === products.length && products.length > 0}
-                  onChange={() => {
-                    if (selected.length === products.length) {
-                      setSelected([]);
-                    } else {
-                      setSelected(products.map((p) => p.id));
-                    };
-                  }}
+                  onChange={handleSelectAll}
                 />
               </th>
               <th>Product Name</th>
@@ -140,21 +159,26 @@ const ProductList = () => {
                   <td>{prod.name}</td>
                   <td>{prod.price}</td>
                   <td>
-                    <button
-                      className={`btn btn-sm ${prod.visible ? 'btn-success' : 'btn-secondary'} ${styles.toggleBtn}`}
-                      onClick={() => handleToggle(prod.id)}
-                    >
-                      {prod.visible ? 'Visible' : 'Hidden'}
-                    </button>
+                    <label className={styles.switch}>
+                      <input
+                        type="checkbox"
+                        checked={prod.visible}
+                        onChange={() => handleToggle(prod.id)}
+                      />
+                      <span className={styles.slider}></span>
+                    </label>
+                    <span className={prod.visible ? 'text-success fw-bold' : 'text-muted'}>
+                      {prod.visible ? 'Show' : 'Hide'}
+                    </span>
                   </td>
                   <td>
                     <button
-                      className={`btn btn-secondary btn-sm m-2 ${styles.actionBtn}`}
+                      className={`btn btn-secondary btn-sm me-3 ${styles.actionBtn}`}
                     >
                       View
                     </button>
                     <button
-                      className={`btn btn-primary btn-sm m-2 ${styles.actionBtn}`}
+                      className={`btn btn-primary btn-sm me-3 ${styles.actionBtn}`}
                       onClick={() => handleEdit(prod.id)}
                     >
                       Edit
@@ -192,7 +216,7 @@ const ProductList = () => {
           <button
             className="btn btn-outline-primary btn-sm me-2"
             disabled={currentPage === 1}
-            onClick={() => setCurrentPage((prev) => prev - 1)}
+            onClick={goToPreviousPage}
           >
             Previous
           </button>
@@ -200,7 +224,7 @@ const ProductList = () => {
           <button
             className="btn btn-outline-primary btn-sm"
             disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((prev) => prev + 1)}
+            onClick={goToNextPage}
           >
             Next
           </button>
